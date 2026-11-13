@@ -1,0 +1,15 @@
+{
+  "name": "Placar Futebol de Robôs · EXPODOM",
+  "short_name": "Placar Robôs",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#041030",
+  "theme_color": "#041030",
+  "lang": "pt-BR",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

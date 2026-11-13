@@ -1,0 +1,155 @@
+/* Painel de controle (gaveta na TV e página controle.html) */
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+  z-index: 30;
+}
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(460px, 100vw);
+  transform: translateX(105%);
+  transition: transform 0.28s ease;
+  z-index: 31;
+  overflow-y: auto;
+  background: #07122e;
+  border-left: 1px solid var(--line);
+  box-shadow: -20px 0 50px rgba(0, 0, 0, 0.5);
+}
+.drawer.open { transform: none; }
+.panel-open .drawer-backdrop { opacity: 1; pointer-events: auto; }
+
+.pn {
+  display: grid;
+  gap: 12px;
+  padding: 14px 16px 24px;
+  font-size: 15px;
+}
+.pn-head {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin: -14px -16px 0;
+  padding: 14px 16px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #07122e;
+  border-bottom: 1px solid var(--line);
+}
+.pn-head b { display: block; font-family: var(--display); font-weight: 400; font-size: 19px; }
+.pn-off { font-size: 12.5px; color: var(--muted); }
+.pn-off[data-ok="1"] { color: var(--green); }
+.pn-off[data-ok="0"] { color: var(--gold); }
+.pn-x { flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: transparent; cursor: pointer; font-size: 18px; }
+
+.pn-card {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+}
+.pn-card h3 { margin: 0; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.pn-card summary { cursor: pointer; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.pn-card small { color: var(--muted); font-size: 12.5px; line-height: 1.5; }
+.pn-status { margin-left: auto; font-style: normal; font-size: 11px; padding: 3px 9px; border-radius: 99px; background: rgba(255, 255, 255, 0.1); letter-spacing: 0.08em; }
+.pn-status[data-s="jogando"] { background: rgba(56, 217, 122, 0.2); color: var(--green); }
+.pn-status[data-s="pausado"] { background: rgba(255, 194, 26, 0.18); color: var(--gold); }
+.pn-status[data-s="fim"] { background: rgba(255, 75, 75, 0.2); color: #ff9a9a; }
+
+.pn-row { display: flex; gap: 8px; }
+.pn-row > * { flex: 1; }
+.pn-row.wrap { flex-wrap: wrap; }
+.pn-row.wrap > * { flex: 1 1 45%; }
+
+.pn button, .pn .btn {
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+}
+.pn button:hover, .pn .btn:hover { background: rgba(255, 255, 255, 0.14); }
+.pn button:active { transform: translateY(1px); }
+.pn button.big { min-height: 54px; font-size: 17px; }
+.pn button.primary { background: #1a7be0; border-color: #4aa8ff; }
+.pn button.primary:hover { background: #2389f2; }
+.pn button.warn { background: #b86b00; border-color: var(--gold); }
+.pn button.left.big { background: var(--blue-d); border-color: var(--blue); }
+.pn button.right.big { background: #c27000; border-color: var(--gold); }
+.pn button.confirming { background: #b3261e !important; border-color: #ff6b6b !important; }
+.pn button.wide { width: 100%; }
+
+.pn-score { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.pn-side { display: grid; gap: 8px; padding: 10px; border-radius: 12px; text-align: center; }
+.pn-side.left { background: rgba(42, 165, 255, 0.12); border: 1px solid rgba(42, 165, 255, 0.45); }
+.pn-side.right { background: rgba(255, 194, 26, 0.1); border: 1px solid rgba(255, 194, 26, 0.45); }
+.pn-name { font-family: var(--display); text-transform: uppercase; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pn-num { font-family: var(--display); font-size: 46px; line-height: 1; }
+.pn-side .pn-row { gap: 6px; }
+.pn-side .pn-row > :first-child { flex: 0 0 52px; }
+
+.pn-timer { font-weight: 700; font-size: 44px; text-align: center; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; line-height: 1; }
+.pn-timer.run { color: var(--green); }
+.pn-opts { align-items: center; }
+.pn label { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); }
+.pn select {
+  flex: 1;
+  min-height: 40px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #0c1a3d;
+  padding: 0 8px;
+}
+.pn label.chk { cursor: pointer; }
+.pn label.chk input { width: 20px; height: 20px; accent-color: var(--blue); }
+
+.pn-names { display: grid; gap: 10px; }
+.pn-names label { display: grid; gap: 4px; }
+.pn-names label > span { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; }
+.pn-names label.left > span { color: var(--blue); }
+.pn-names label.right > span { color: var(--gold); }
+.pn-in { display: flex; gap: 6px; }
+.pn-in button { flex: 0 0 48px; font-size: 20px; }
+.pn input[type="text"], .pn input:not([type]), .pn textarea {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: #0c1a3d;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.pn textarea { font-size: 14px; font-weight: 500; text-transform: none; resize: vertical; line-height: 1.5; }
+.pn input:focus, .pn textarea:focus, .pn select:focus { outline: 2px solid var(--blue); outline-offset: 1px; }
+
+.pn-hist { margin: 0; padding-left: 0; list-style: none; display: grid; gap: 4px; max-height: 220px; overflow-y: auto; font-size: 13.5px; }
+.pn-hist li { padding: 6px 10px; border-radius: 8px; background: rgba(255, 255, 255, 0.05); text-transform: uppercase; }
+.pn-hist li.empty { text-transform: none; color: var(--muted); }
+
+/* ---------- página controle.html ---------- */
+.ctrl-page { background: #050d24; min-height: 100%; }
+.ctrl-page .pn { max-width: 560px; margin: 0 auto; }
+.ctrl-page .pn-head { position: sticky; background: #050d24; }

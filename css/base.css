@@ -1,0 +1,55 @@
+@font-face {
+  font-family: 'Russo One';
+  src: url('../assets/fonts/russo-one.woff2') format('woff2');
+  font-weight: 400;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Chakra Petch';
+  src: url('../assets/fonts/chakra-500.woff2') format('woff2');
+  font-weight: 500;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Chakra Petch';
+  src: url('../assets/fonts/chakra-700.woff2') format('woff2');
+  font-weight: 700;
+  font-display: block;
+}
+
+:root {
+  --bg-1: #0a2266;
+  --bg-2: #041030;
+  --bg-3: #020818;
+  --blue: #2aa5ff;
+  --blue-d: #0b4fb8;
+  --gold: #ffc21a;
+  --gold-d: #e07800;
+  --red: #ff4b4b;
+  --green: #38d97a;
+  --ink: #ffffff;
+  --muted: rgba(255, 255, 255, 0.66);
+  --line: rgba(255, 255, 255, 0.14);
+  --display: 'Russo One', 'Arial Black', system-ui, sans-serif;
+  --tech: 'Chakra Petch', 'Roboto', system-ui, sans-serif;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: var(--bg-3);
+  color: var(--ink);
+  font-family: var(--tech);
+  -webkit-font-smoothing: antialiased;
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+kbd {
+  font-family: var(--tech);
+  font-weight: 700;
+  font-size: 0.85em;
+  padding: 0.05em 0.45em;
+  border-radius: 5px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.08);
+}

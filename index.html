@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Placar Futebol de Robôs · EXPODOM</title>
+  <meta name="description" content="Placar de futebol de robôs da EXPODOM — Escola Dom Diego">
+  <meta name="theme-color" content="#041030">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon-192.png">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/placar.css">
+  <link rel="stylesheet" href="css/painel.css">
+</head>
+<body class="tv-page">
+  <main class="tv" id="tv">
+    <svg class="pitch" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true">
+      <g fill="none" stroke="currentColor" stroke-width="3">
+        <line x1="800" y1="0" x2="800" y2="900"/>
+        <circle cx="800" cy="520" r="150"/>
+        <rect x="-4" y="300" width="170" height="440"/>
+        <rect x="1434" y="300" width="170" height="440"/>
+      </g>
+    </svg>
+
+    <header class="top">
+      <div class="logo-card escola"><img src="assets/escola.jpg" alt="Escola Dom Diego"></div>
+      <div class="title">
+        <div class="kicker">EXPODOM · ROBÓTICA</div>
+        <h1>FUTEBOL DE ROBÔS</h1>
+        <div class="match">PARTIDA <span id="match-n">1</span></div>
+      </div>
+      <div class="logo-card expodom"><img src="assets/expodom.jpg" alt="EXPODOM"></div>
+    </header>
+
+    <section class="board">
+      <article class="team left" id="team-left">
+        <div class="crown">VENCEDOR</div>
+        <div class="score" id="score-left">0</div>
+        <div class="name" id="name-left"><span class="txt"></span></div>
+      </article>
+
+      <div class="center" id="center">
+        <div class="vs">VS</div>
+        <div class="clock">
+          <div class="timer" id="timer">03:00</div>
+          <div class="bar"><i id="timer-bar"></i></div>
+        </div>
+        <div class="status" id="status">PREPARAR</div>
+      </div>
+
+      <article class="team right" id="team-right">
+        <div class="crown">VENCEDOR</div>
+        <div class="score" id="score-right">0</div>
+        <div class="name" id="name-right"><span class="txt"></span></div>
+      </article>
+    </section>
+
+    <footer class="bottom">
+      <span class="label">ÚLTIMAS PARTIDAS</span>
+      <ul id="history"></ul>
+    </footer>
+
+    <div class="overlay" id="overlay" aria-live="polite"></div>
+  </main>
+
+  <button class="gear" id="gear" title="Painel de controle (C)">⚙ Controle</button>
+  <button class="sound-hint" id="sound-hint" hidden>🔈 Clique para ativar o som</button>
+
+  <div class="drawer-backdrop" id="drawer-backdrop"></div>
+  <aside class="drawer" id="drawer"><div id="drawer-inner"></div></aside>
+
+  <script type="module" src="js/placar.js"></script>
+</body>
+</html>

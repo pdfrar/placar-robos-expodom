@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Controle do Placar · EXPODOM</title>
+  <meta name="theme-color" content="#050d24">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon-192.png">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/painel.css">
+</head>
+<body class="ctrl-page">
+  <div id="root"></div>
+  <script type="module">
+    import { mountPainel, bindShortcuts, registerSW } from './js/painel.js';
+    mountPainel(document.getElementById('root'), { embedded: false });
+    bindShortcuts({ onFull: () => {} });
+    registerSW();
+  </script>
+</body>
+</html>
