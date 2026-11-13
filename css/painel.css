@@ -153,3 +153,10 @@
 .ctrl-page { background: #050d24; min-height: 100%; }
 .ctrl-page .pn { max-width: 560px; margin: 0 auto; }
 .ctrl-page .pn-head { position: sticky; background: #050d24; }
+
+.pn-keys { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.pn-key { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 8px; background: rgba(255, 255, 255, 0.05); font-size: 13.5px; }
+.pn-key kbd { flex: none; min-width: 26px; text-align: center; font-size: 15px; }
+.pn-key.left kbd { border-color: var(--blue); color: var(--blue); }
+.pn-key.right kbd { border-color: var(--gold); color: var(--gold); }
+.pn button kbd.k { margin-left: 8px; }

@@ -1,5 +1,5 @@
 // Service worker: guarda tudo no primeiro acesso e funciona sem internet.
-const CACHE = 'placar-robos-v2';
+const CACHE = 'placar-robos-v3';
 const FILES = [
   './',
   './index.html',

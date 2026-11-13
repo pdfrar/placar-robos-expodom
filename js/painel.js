@@ -21,6 +21,22 @@ export function mountPainel(root, { embedded = false, onClose } = {}) {
     </header>
 
     <section class="pn-card">
+      <h3>Teclas numéricas</h3>
+      <div class="pn-keys">
+        <div class="pn-key left"><kbd>1</kbd><span>Gol esquerda</span></div>
+        <div class="pn-key left"><kbd>2</kbd><span>−1 esquerda</span></div>
+        <div class="pn-key right"><kbd>3</kbd><span>Gol direita</span></div>
+        <div class="pn-key right"><kbd>4</kbd><span>−1 direita</span></div>
+        <div class="pn-key "><kbd>5</kbd><span>Iniciar / pausar</span></div>
+        <div class="pn-key "><kbd>6</kbd><span>Zerar tempo</span></div>
+        <div class="pn-key "><kbd>7</kbd><span>Sortear nomes</span></div>
+        <div class="pn-key "><kbd>8</kbd><span>Trocar lados</span></div>
+        <div class="pn-key "><kbd>9</kbd><span>Encerrar partida</span></div>
+        <div class="pn-key "><kbd>0</kbd><span>Nova partida</span></div>
+      </div>
+    </section>
+
+    <section class="pn-card">
       <h3>Placar · Partida <span data-match></span> <em class="pn-status" data-status></em></h3>
       <div class="pn-score">
         ${['left', 'right'].map((side) => `
@@ -31,10 +47,10 @@ export function mountPainel(root, { embedded = false, onClose } = {}) {
             <button data-act="minus" data-side="${side}" title="Tirar um gol">−1</button>
             <button class="big ${side}" data-act="goal" data-side="${side}">GOL +1</button>
           </div>
-          <small>Teclas: <kbd>${side === 'left' ? 'Q' : 'P'}</kbd> gol · <kbd>${side === 'left' ? 'A' : 'L'}</kbd> −1</small>
+          <small>Teclas: <kbd>${side === 'left' ? '1' : '3'}</kbd> gol · <kbd>${side === 'left' ? '2' : '4'}</kbd> −1</small>
         </div>`).join('')}
       </div>
-      <button class="wide" data-act="swap">⇄ Trocar lados</button>
+      <button class="wide" data-act="swap">⇄ Trocar lados <kbd class="k">8</kbd></button>
     </section>
 
     <section class="pn-card">
@@ -52,7 +68,7 @@ export function mountPainel(root, { embedded = false, onClose } = {}) {
         </label>
         <label class="chk"><input type="checkbox" data-showtimer> Mostrar na TV</label>
       </div>
-      <small>Tecla <kbd>Espaço</kbd> inicia/pausa · <kbd>R</kbd> zera</small>
+      <small>Tecla <kbd>5</kbd> ou <kbd>Espaço</kbd> inicia/pausa · <kbd>6</kbd> zera</small>
     </section>
 
     <section class="pn-card">
@@ -71,7 +87,7 @@ export function mountPainel(root, { embedded = false, onClose } = {}) {
         <button data-act="rndboth">🎲 Sortear os dois</button>
         <button class="primary" data-act="apply">✓ Usar estes nomes</button>
       </div>
-      <small>Tecla <kbd>S</kbd> sorteia os dois nomes</small>
+      <small>Tecla <kbd>7</kbd> sorteia os dois nomes</small>
     </section>
 
     <section class="pn-card">
@@ -80,7 +96,7 @@ export function mountPainel(root, { embedded = false, onClose } = {}) {
         <button data-act="end" data-confirm="Confirmar fim?">🏁 Encerrar partida</button>
         <button class="primary" data-act="new" data-confirm="Zerar e começar?">＋ Nova partida</button>
       </div>
-      <small>“Nova partida” guarda o resultado no histórico e zera placar e cronômetro. Tecla <kbd>N</kbd>.</small>
+      <small>“Nova partida” guarda o resultado no histórico e zera placar e cronômetro. Teclas: <kbd>9</kbd> encerra · <kbd>0</kbd> nova partida (aperte duas vezes se houver jogo em andamento).</small>
     </section>
 
     <details class="pn-card">
@@ -243,13 +259,34 @@ export function mountPainel(root, { embedded = false, onClose } = {}) {
 
 // ---------- atalhos de teclado ----------
 export function bindShortcuts({ onPanel, onFull } = {}) {
-  let lastN = 0;
+  const lastPress = {};
+  // ações perigosas pedem duas apertadas em até 2 s quando há jogo em andamento
+  const twice = (id, needed, fn) => {
+    const now = Date.now();
+    if (needed && now - (lastPress[id] || 0) > 2000) { lastPress[id] = now; return; }
+    lastPress[id] = 0;
+    fn();
+  };
+  const busy = () => { const s = S.get(); return s.left.score + s.right.score > 0 || S.running(s); };
   window.addEventListener('keydown', (e) => {
     const t = e.target;
     if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')) return;
     if (e.ctrlKey || e.altKey || e.metaKey) return;
-    const k = e.key.toLowerCase();
+    const digit = /^(Digit|Numpad)([0-9])$/.exec(e.code || '');
+    const k = digit ? digit[2] : e.key.toLowerCase();
     const map = {
+      // teclas numéricas (linha de cima ou teclado numérico)
+      1: () => S.goal('left', 1),
+      2: () => S.goal('left', -1),
+      3: () => S.goal('right', 1),
+      4: () => S.goal('right', -1),
+      5: () => S.toggleTimer(),
+      6: () => S.resetTimer(),
+      7: () => S.drawNames(),
+      8: () => S.swapSides(),
+      9: () => twice('end', S.get().status !== 'fim', () => { if (S.get().status !== 'fim') S.endMatch(); }),
+      0: () => twice('new', busy(), () => S.newMatch()),
+      // letras (atalhos antigos continuam valendo)
       q: () => S.goal('left', 1),
       a: () => S.goal('left', -1),
       p: () => S.goal('right', 1),
@@ -258,15 +295,7 @@ export function bindShortcuts({ onPanel, onFull } = {}) {
       r: () => S.resetTimer(),
       s: () => S.drawNames(),
       t: () => S.swapSides(),
-      n: () => {
-        // com partida em andamento, exige apertar N duas vezes (evita acidente)
-        const s = S.get();
-        const busy = s.left.score + s.right.score > 0 || S.running(s);
-        const now = Date.now();
-        if (busy && now - lastN > 2000) { lastN = now; return; }
-        lastN = 0;
-        S.newMatch();
-      },
+      n: () => twice('new', busy(), () => S.newMatch()),
       c: () => onPanel && onPanel(),
       escape: () => onPanel && onPanel(false),
       f: () => (onFull || toggleFullscreen)(),

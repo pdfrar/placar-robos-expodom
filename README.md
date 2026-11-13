@@ -14,17 +14,21 @@ Funciona **sem internet** depois do primeiro acesso (service worker guarda tudo 
 
 ## Atalhos (na janela do placar)
 
+Teclas numéricas da linha de cima (ou do teclado numérico):
+
 | Tecla | Ação |
 |---|---|
-| `Q` / `A` | Gol / −1 robô da esquerda |
-| `P` / `L` | Gol / −1 robô da direita |
-| `Espaço` | Inicia / pausa o cronômetro |
-| `R` | Zera o cronômetro |
-| `S` | Sorteia os nomes dos dois robôs |
-| `T` | Troca os lados |
-| `N` `N` | Nova partida (apertar duas vezes se houver jogo em andamento) |
-| `C` | Abre / fecha o painel de controle |
-| `F` | Tela cheia |
+| `1` / `2` | Gol / −1 robô da esquerda |
+| `3` / `4` | Gol / −1 robô da direita |
+| `5` | Inicia / pausa o cronômetro |
+| `6` | Zera o cronômetro |
+| `7` | Sorteia os nomes dos dois robôs |
+| `8` | Troca os lados |
+| `9` | Encerra a partida (duas vezes se o jogo estiver rolando) |
+| `0` | Nova partida (duas vezes se houver jogo em andamento) |
+
+Outras: `C` abre/fecha o painel · `F` tela cheia · `Espaço` inicia/pausa.
+Os atalhos de letra antigos (`Q` `A` `P` `L` `R` `S` `T` `N`) continuam funcionando.
 
 Os nomes podem ser digitados no painel ou sorteados de uma lista editável.
 Placar, nomes e histórico ficam salvos no navegador, mesmo se a página for recarregada.
